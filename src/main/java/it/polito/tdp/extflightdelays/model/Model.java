@@ -42,21 +42,18 @@ public class Model {
 				// inserisco l'aeroporto come vertice
 				this.grafo.addVertex(a);
 			}
+		}
+		for(Rotta r : dao.getRotte(idMap)){
 			
-			for(Rotta r : dao.getRotte(idMap)){
-				
-				if(this.grafo.containsVertex(r.getA1()) && this.grafo.containsVertex(r.getA2())) {
-					DefaultWeightedEdge e = this.grafo.getEdge(r.a1, r.a2);
-					if(e == null) {
-						Graphs.addEdgeWithVertices(this.grafo, r.getA1(), r.getA2(), r.getPeso());
-					} else {
-						double pesoVecchio = this.grafo.getEdgeWeight(e);
-						double pesoNuovo = pesoVecchio + r.getPeso();
-						this.grafo.setEdgeWeight(e, pesoNuovo);
-					}
+			if(this.grafo.containsVertex(r.getA1()) && this.grafo.containsVertex(r.getA2())) {
+				DefaultWeightedEdge e = this.grafo.getEdge(r.a1, r.a2);
+				if(e == null) {
+					Graphs.addEdgeWithVertices(this.grafo, r.getA1(), r.getA2(), r.getPeso());
+				} else {
+					double pesoVecchio = this.grafo.getEdgeWeight(e);
+					double pesoNuovo = pesoVecchio + r.getPeso();
+					this.grafo.setEdgeWeight(e, pesoNuovo);
 				}
-				
-				
 			}
 		}
 	}
